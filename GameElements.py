@@ -29,6 +29,7 @@ class Player:
         self.shoot_once = False
         self.abgefeuert = True
         self.stroke_enemy = False
+        self.bullets = []
 
     def draw(self, win):
         win.fill((0, 0, 0))
@@ -45,13 +46,33 @@ class Player:
 
         if self.space:
 
+            #self.shoot(win)
             self.shoot(win)
+            self.space = False
+        else:
             pass
-            """y_bullet = self.y
-            bullet_rect = pygame.Rect(self.x, y_bullet, 10, 20)
-            pygame.draw.rect(win, (255, 0, 0), bullet_rect)
-            while not y_bullet > 800:
-                y_bullet += 10"""
+            """for bullet in self.bullets:
+
+                bullet[1] -= 10
+                pygame.draw.rect(win, RED, (bullet[0], bullet[1], self.bullet_width, self.bullet_height))
+
+                if bullet[1] < 0:
+                    bullet[0] = self.x
+                    bullet[1] = self.y
+                    self.bullets.remove(bullet)
+
+                    #self.abgefeuert = False
+                    #self.space = False
+                    #self.stroke_enemy = False
+
+                elif self.stroke_enemy:
+                    bullet[0] = self.x + 55
+                    bullet[1] = self.y
+                    self.bullets.remove(bullet)
+                    #self.abgefeuert = False
+                    #self.space = False
+                    self.stroke_enemy = False"""
+
 
 
     def shoot(self, win):
@@ -60,25 +81,57 @@ class Player:
             if not self.abgefeuert:
                 self.bullet_x = self.x + 55
                 self.bullet_y = self.y
+                self.bullets.append([self.bullet_x, self.bullet_y])
 
-                self.abgefeuert = True
+                #self.abgefeuert = True
+            print(self.bullets)
 
+            """for bullet in self.bullets:
 
+                if bullet[1] < 0:
+                    bullet[0] = self.x
+                    self.abgefeuert = False
+                    self.space = False
 
-            self.bullet_y -= 10
-            bullet = pygame.draw.rect(win, RED, (self.bullet_x , self.bullet_y, self.bullet_width, self.bullet_height))
+                elif self.stroke_enemy:
+                    bullet[0] = self.x + 55
+                    bullet[1] = self.y
+                    self.abgefeuert = False
+                    self.space = False
+                    self.stroke_enemy = False"""
 
-            if self.bullet_y < 0:
-                self.bullet_x = self.x
-                self.abgefeuert = False
-                self.space = False
+            self.abgefeuert = False
+            self.space = False
 
-            elif self.stroke_enemy:
+    def shoot_more_bullets(self, win):
+        if self.space:
+
+            if not self.abgefeuert:
                 self.bullet_x = self.x + 55
                 self.bullet_y = self.y
-                self.abgefeuert = False
-                self.space = False
-                self.stroke_enemy = False
+                self.bullets.append([self.bullet_x, self.bullet_y])
+
+                #self.abgefeuert = True
+            print(self.bullets)
+
+            """for bullet in self.bullets:
+
+                if bullet[1] < 0:
+                    bullet[0] = self.x
+                    self.abgefeuert = False
+                    self.space = False
+
+                elif self.stroke_enemy:
+                    bullet[0] = self.x + 55
+                    bullet[1] = self.y
+                    self.abgefeuert = False
+                    self.space = False
+                    self.stroke_enemy = False"""
+
+            self.abgefeuert = False
+            self.space = False
+
+
 
 
 
@@ -98,13 +151,11 @@ class Enemy:
             y_start += 100
             x_position = x_start
             for _ in range(5):
-                self.enemys.append((x_position, y_start))
+                self.enemys.append([x_position, y_start])
                 x_position += 120
-        print(self.enemys)
 
 
     def draw(self, win):
 
         for enemy_position in self.enemys:
             win.blit(self.enemy_pic, enemy_position)
-
