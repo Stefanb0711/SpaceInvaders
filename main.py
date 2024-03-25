@@ -24,15 +24,20 @@ clock = pygame.time.Clock()
 
 
 
-enemy = Enemy()
+enemys = Enemy()
 
 def redrawGameWindow():
     win.blit(background, (0,0))
     player.draw(win)
     #enemy_creator()
-    enemy.draw(win)
+    enemys.draw(win)
 
-    #player.shoot(win)
+    for enemy in enemys.enemies:
+        if player.bullet_y == enemy[1] and player.bullet_x == enemy[0]:
+            player.space = False
+
+
+
     pygame.display.update()
 
 
@@ -46,10 +51,15 @@ while not game_over:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_LEFT] and player.x > player.vel:
+        print(f"Player x: {player.x}")
+        print(f"Bullet_x : {player.bullet_x}")
         player.left = True
         player.right = False
         player.x -= player.vel
     elif keys[pygame.K_RIGHT] and player.x < 1000 - player.width - player.vel:
+        print(f"Player x: {player.x}")
+        print(f"Bullet_x : {player.bullet_x}")
+
         player.left = False
         player.right = True
         player.x += player.vel

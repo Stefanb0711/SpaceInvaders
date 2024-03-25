@@ -24,8 +24,10 @@ class Player:
         self.player = pygame.image.load("Pics/Rakete.png")
         self.bullet_width = 10
         self.bullet_height = 20
-        self.bullet_x = self.x
+        self.bullet_x = self.x + 55
         self.bullet_y = self.y
+        self.shoot_once = False
+        self.abgefeuert = True
 
     def draw(self, win):
         win.fill((0, 0, 0))
@@ -41,8 +43,9 @@ class Player:
             win.blit(self.player, (self.x, self.y))
 
         if self.space:
-            self.shoot(win)
 
+            self.shoot(win)
+            pass
             """y_bullet = self.y
             bullet_rect = pygame.Rect(self.x, y_bullet, 10, 20)
             pygame.draw.rect(win, (255, 0, 0), bullet_rect)
@@ -53,13 +56,22 @@ class Player:
     def shoot(self, win):
         if self.space:
 
+            if not self.abgefeuert:
+                self.bullet_x = self.x + 55
+                self.bullet_y = self.y
+
+                self.abgefeuert = True
+
+
             self.bullet_y -= 10
-            pygame.draw.rect(win, RED, (self.bullet_x, self.bullet_y, self.bullet_width, self.bullet_height))
+            pygame.draw.rect(win, RED, (self.bullet_x , self.bullet_y, self.bullet_width, self.bullet_height))
 
             if self.bullet_y < 0:
                 self.bullet_x = self.x
-                self.bullet_y = self.y
+                self.abgefeuert = False
                 self.space = False
+
+
 
 
 
@@ -80,6 +92,7 @@ class Enemy:
             for _ in range(5):
                 self.enemies.append((x_position, y_start))
                 x_position += 120
+        print(self.enemies)
 
 
     def draw(self, win):
