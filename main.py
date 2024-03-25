@@ -27,13 +27,21 @@ clock = pygame.time.Clock()
 enemys = Enemy()
 
 def redrawGameWindow():
+    global game_over
     win.blit(background, (0,0))
     player.draw(win)
     #enemy_creator()
     enemys.draw(win)
 
-    for enemy in enemys.enemies:
-        if player.bullet_y <= enemy[1] + 50 and player.bullet_x >= enemy[0] + 50 or player.bullet_y <= enemy[1] + 50 and player.bullet_x <= enemy[0] - 50:
+
+
+    if enemys == []:
+        game_over = True
+
+    for enemy in enemys.enemys:
+        if (enemy[0] - 70 <= player.bullet_x <= enemy[0] + 70) and (enemy[1] - 50 <= player.bullet_y <= enemy[1] + 50):
+            print(f"Player: ({player.bullet_x}/{player.bullet_y})\nEnemy: {enemy}")
+            enemys.enemys.remove(enemy)
             player.stroke_enemy = True
 
 

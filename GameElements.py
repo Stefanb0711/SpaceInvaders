@@ -89,7 +89,7 @@ class Enemy:
         self.x_position_enemys_start = 150
         self.y_position_enemys_start = -70
         self.enemy_pic = pygame.image.load("Pics/Enemy1.png")
-        self.enemies = []
+        self.enemys = []
 
         x_start = 150
         y_start = -70
@@ -98,13 +98,13 @@ class Enemy:
             y_start += 100
             x_position = x_start
             for _ in range(5):
-                self.enemies.append((x_position, y_start))
+                self.enemys.append((x_position, y_start))
                 x_position += 120
-        print(self.enemies)
+        print(self.enemys)
 
 
     def draw(self, win):
 
-        for enemy_position in self.enemies:
+        for enemy_position in self.enemys:
             win.blit(self.enemy_pic, enemy_position)
 
