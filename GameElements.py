@@ -28,6 +28,7 @@ class Player:
         self.bullet_y = self.y
         self.shoot_once = False
         self.abgefeuert = True
+        self.stroke_enemy = False
 
     def draw(self, win):
         win.fill((0, 0, 0))
@@ -63,14 +64,21 @@ class Player:
                 self.abgefeuert = True
 
 
+
             self.bullet_y -= 10
-            pygame.draw.rect(win, RED, (self.bullet_x , self.bullet_y, self.bullet_width, self.bullet_height))
+            bullet = pygame.draw.rect(win, RED, (self.bullet_x , self.bullet_y, self.bullet_width, self.bullet_height))
 
             if self.bullet_y < 0:
                 self.bullet_x = self.x
                 self.abgefeuert = False
                 self.space = False
 
+            elif self.stroke_enemy:
+                self.bullet_x = self.x + 55
+                self.bullet_y = self.y
+                self.abgefeuert = False
+                self.space = False
+                self.stroke_enemy = False
 
 
 

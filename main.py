@@ -33,8 +33,8 @@ def redrawGameWindow():
     enemys.draw(win)
 
     for enemy in enemys.enemies:
-        if player.bullet_y == enemy[1] and player.bullet_x == enemy[0]:
-            player.space = False
+        if player.bullet_y <= enemy[1] + 50 and player.bullet_x >= enemy[0] + 50 or player.bullet_y <= enemy[1] + 50 and player.bullet_x <= enemy[0] - 50:
+            player.stroke_enemy = True
 
 
 
