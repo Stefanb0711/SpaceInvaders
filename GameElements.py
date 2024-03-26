@@ -143,8 +143,11 @@ class Enemy:
         self.y_position_enemys_start = -70
         self.enemy_pic = pygame.image.load("Pics/Enemy1.png")
         self.enemys = []
+        self.steps = 120
+        self.direction = 1
+        #self.rechter_rand = 0
 
-        x_start = 150
+        x_start = 10
         y_start = -70
 
         for _ in range(3):
@@ -154,8 +157,55 @@ class Enemy:
                 self.enemys.append([x_position, y_start])
                 x_position += 120
 
+        self.rechter_rand = self.enemys[14][0]
+        print("f Rechter Rand", self.rechter_rand)
+
 
     def draw(self, win):
 
+
         for enemy_position in self.enemys:
+            enemy_position[0] += self.direction * 2
+            self.rechter_rand += self.direction * 2
             win.blit(self.enemy_pic, enemy_position)
+
+            if enemy_position[0] >= 900:
+                self.direction = -1
+                win.blit(self.enemy_pic, enemy_position)
+
+            elif enemy_position[0] <= 0:
+                self.direction = 1
+                win.blit(self.enemy_pic, enemy_position)
+
+
+        """if self.rechter_rand >= 900:
+            self.direction = -1
+            for enemy_position in self.enemys:
+
+                win.blit(self.enemy_pic, enemy_position)
+                #enemy_position[0] -= 120
+
+
+        elif self.enemys[0][0] <= 0:
+            self.direction = 1
+            for enemy_position in self.enemys:
+
+                win.blit(self.enemy_pic, enemy_position)
+                enemy_position[0] += 120"""
+
+
+        """for _ in range(1,5):
+            for enemy_position in self.enemys:
+
+                win.blit(self.enemy_pic, enemy_position)
+                enemy_position[0] += 120
+
+        for _ in range(5,1, -1):
+            for enemy_position in self.enemys:
+
+                enemy_position[0] -= 120"""
+
+
+
+
+
