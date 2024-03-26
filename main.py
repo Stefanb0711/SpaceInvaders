@@ -84,8 +84,15 @@ def redrawGameWindow():
     for enemy_bullet in enemys.bullets:
         enemy_bullet[1] += 10
 
+        if enemy_bullet[0] - 50 <= player.x <= enemy_bullet[0] + 50 and enemy_bullet[1] - 134 <= player.y + 50 <= enemy_bullet[1] + 20:
+            enemys.bullets.remove(enemy_bullet)
+            print("Player wurde getroffen")
+            game_over = True
+
         if enemy_bullet[1] >= 800:
             enemys.bullets.remove(enemy_bullet)
+
+
 
         elif len(enemys.bullets) >= 5:
             enemys.bullets.pop(0)
