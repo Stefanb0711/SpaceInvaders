@@ -1,5 +1,6 @@
 import pygame
 from PIL import Image
+import random
 
 """win = pygame.display.set_mode((1000, 800))
 pygame.display.set_caption("Space Invaders")
@@ -146,6 +147,10 @@ class Enemy:
         self.steps = 120
         self.direction = 1
         #self.rechter_rand = 0
+        self.bullets = []
+        self.bullet_width = 10
+        self.bullet_height = 20
+
 
         x_start = 10
         y_start = -70
@@ -158,7 +163,6 @@ class Enemy:
                 x_position += 120
 
         self.rechter_rand = self.enemys[14][0]
-        print("f Rechter Rand", self.rechter_rand)
 
 
     def draw(self, win):
@@ -205,7 +209,17 @@ class Enemy:
 
                 enemy_position[0] -= 120"""
 
+    def shoot(self, win):
+        random_enemy = random.randint(0, len(self.enemys)-1)
+        print(random_enemy)
+        self.enemys[random_enemy]
+        #bullet = [random_enemy[0], random_enemy[1]]
+        self.bullets.append([self.enemys[random_enemy][0], self.enemys[random_enemy][1]])
 
+        for enemy_bullet in self.bullets:
+            enemy_bullet[1] += 10
+
+            pygame.draw.rect(win, RED, (enemy_bullet[0], enemy_bullet[1],self.bullet_width, self.bullet_height))
 
 
 

@@ -79,6 +79,8 @@ def redrawGameWindow():
                     bullet[1] = player.y
                     player.bullets.remove(bullet)
 
+    enemys.shoot(win)
+
 
 
     pygame.display.update()
