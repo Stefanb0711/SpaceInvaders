@@ -1,3 +1,5 @@
+import random
+
 import pygame
 from PIL import Image
 from GameElements import Player, RED, WHITE, Enemy
@@ -79,7 +81,40 @@ def redrawGameWindow():
                     bullet[1] = player.y
                     player.bullets.remove(bullet)
 
-    enemys.shoot(win)
+    for enemy_bullet in enemys.bullets:
+        enemy_bullet[1] += 10
+
+        if enemy_bullet[1] >= 800:
+            enemys.bullets.remove(enemy_bullet)
+
+        elif len(enemys.bullets) >= 5:
+            enemys.bullets.pop(0)
+
+
+        pygame.draw.rect(win, RED, (enemy_bullet[0], enemy_bullet[1], enemys.bullet_width, enemys.bullet_height))
+
+
+    frequency_enemy_bullets = random.randint(0,100)
+
+    if frequency_enemy_bullets <= 1:
+        print(enemys.bullets)
+
+        random_enemy = random.randint(0, len(enemys.enemys) - 1)
+        #enemys.enemys[random_enemy]
+        enemys.bullets.append([enemys.enemys[random_enemy][0], enemys.enemys[random_enemy][1]])
+
+
+
+
+
+        """elif enemy_bullet[0] - 50 <= player.x <= enemy_bullet[0] + 50 and enemy_bullet[1] - 50 <= player.y + 50:
+                enemys.bullets.remove(enemy_bullet)"""
+
+
+
+
+
+    #enemys.shoot(win)
 
 
 

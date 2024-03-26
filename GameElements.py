@@ -1,6 +1,7 @@
 import pygame
 from PIL import Image
 import random
+import time
 
 """win = pygame.display.set_mode((1000, 800))
 pygame.display.set_caption("Space Invaders")
@@ -219,7 +220,11 @@ class Enemy:
         for enemy_bullet in self.bullets:
             enemy_bullet[1] += 10
 
-            pygame.draw.rect(win, RED, (enemy_bullet[0], enemy_bullet[1],self.bullet_width, self.bullet_height))
+            if enemy_bullet[1] >= 800:
+                self.bullets.remove(enemy_bullet)
+            elif enemy_bullet:
+
+                pygame.draw.rect(win, RED, (enemy_bullet[0], enemy_bullet[1],self.bullet_width, self.bullet_height))
 
 
 
