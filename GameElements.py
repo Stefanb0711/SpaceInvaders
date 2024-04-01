@@ -228,3 +228,35 @@ class Enemy:
 
 
 
+
+"""class StartWindow:
+    def __init__(self):
+        self.win_start = pygame.display.set_mode((1000,800))
+        self.button_width = 200
+        self.button_height = 100
+        self.start_game = False
+
+        self.background = pygame.image.load("Pics/StarBackground.gif")
+        self.background = pygame.transform.scale(background, (1000, 750))
+
+        pygame.display.set_caption("Space Invaders")
+        pygame.mixer.init()
+        pygame.mixer.music.load("Sounds/BackgroundMusic.mp3")
+        pygame.mixer.music.play(-1)
+        #self.events()
+
+    def events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game_over = True
+
+
+    def draw(self):
+        self.win_start.blit(self.background,(0,0) )
+        pygame.draw.rect(self.win_start, RED, (500, 400, self.button_width, self.button_height))
+        #self.win_start.blit(self.start_button_rect, (500, 400))
+
+"""
+
+
+

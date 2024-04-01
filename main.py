@@ -4,8 +4,19 @@ import pygame
 from PIL import Image
 from GameElements import Player, RED, WHITE, Enemy
 
-win = pygame.display.set_mode((1000, 800))
+pygame.init()
+
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 800
+
+win = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Space Invaders")
+pygame.mixer.init()
+pygame.mixer.music.load("Sounds/BackgroundMusic.mp3")
+pygame.mixer.music.play(-1)
+
+font_timer = pygame.font.Font("Fonts/AldotheApache.ttf", 40)
+font = pygame.font.Font("Fonts/AldotheApache.ttf", 24)
 
 
 background = pygame.image.load("Pics/StarBackground.gif")
@@ -22,6 +33,48 @@ game_over = False
 
 clock = pygame.time.Clock()
 
+def timer_before_game_starts():
+    countdown = 4
+    last_tick = pygame.time.get_ticks()
+
+    while countdown > 0:
+        # Berechne vergangene Zeit seit dem letzten Update
+        current_tick = pygame.time.get_ticks()
+        delta_time = current_tick - last_tick
+
+        # Wenn eine Sekunde vergangen ist, aktualisiere den Countdown
+        if delta_time >= 1000:
+            countdown -= 1
+            last_tick = current_tick
+
+            # Zeichne den Countdown auf das Fenster
+            win.fill((0, 0, 0))
+            win.blit(background, (0, 0))
+
+            timer_surface = font_timer.render(f"{countdown}", True, (255, 255, 255))
+            timer_rect = timer_surface.get_rect(center=(1000 // 2, 800 - 600))
+            win.blit(timer_surface, timer_rect)
+
+            #Spielbeschreibung
+            description_text_surface = font.render(
+                "Press the arrow keys for moving and space for shooting.\n Dont get hit by the enenmys", True,
+                (255, 255, 255))
+            description_text_rect = description_text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 300))
+            win.blit(description_text_surface, description_text_rect)
+
+            pygame.display.update()
+
+            # Verzögere das Programm für eine Sekunde, damit der Benutzer den Countdown sehen kann
+            pygame.time.delay(1000)
+
+        # Überprüfe auf Beenden des Spiels
+
+def info_before_game_starts():
+    #win.blit(background, (0, 0))
+    description_text_surface = font_timer.render("Press the arrow keys for moving and space for shooting.\n Dont get hit by the enenmys", True, (255, 255, 255))
+    description_text_rect = description_text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 300))
+    pygame.display.update()
+    pygame.time.delay(3000)
 
 
 
@@ -129,6 +182,7 @@ def redrawGameWindow():
 
 
 
+timer_before_game_starts()
 
 while not game_over:
     clock.tick(30)
